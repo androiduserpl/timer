@@ -65,7 +65,8 @@ var UIController = (function () {
     var DOMStrings = {
         inputTime: '#set-time',
         output: '#time',
-        inputBtn: '#do-it'
+        inputBtn: '#do-it',
+        title: '.title'
     };
 
     return { // zwracam obiekt - umozliwia dostep z innej sekcji 
@@ -88,7 +89,6 @@ var controller = (function (UICtrl, Timer) {
 
         var DOM = UICtrl.getDOMStrings(); // skrót do DOMStrings
 
-        document.querySelector(DOM.inputBtn).addEventListener('click', passTime);
         
         var test = function() {
             console.log('elo!');
@@ -99,8 +99,12 @@ var controller = (function (UICtrl, Timer) {
             
             input = UICtrl.getInput(); // pobierze wartość z input
             
-            console.log(input);
+            if (input.inputTime !== '') {
+                document.querySelector(DOM.title).textContent = input.inputTime;
+            }
         };
+        
+        document.querySelector(DOM.inputBtn).addEventListener('click', passTime);
 
     };
     
@@ -110,6 +114,6 @@ var controller = (function (UICtrl, Timer) {
         }
     }
     
-})(Timer, UIController);
+})(UIController, Timer);
 
 controller.init();
